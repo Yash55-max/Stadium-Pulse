@@ -1,0 +1,37 @@
+{
+  "zones": [
+    { "id": "zone_north", "name": "North Concourse", "capacity": 5000, "current_density": 0 },
+    { "id": "zone_south", "name": "South Concourse", "capacity": 5000, "current_density": 0 },
+    { "id": "zone_east", "name": "East Concourse", "capacity": 4000, "current_density": 0 },
+    { "id": "zone_west", "name": "West Concourse", "capacity": 4000, "current_density": 0 }
+  ],
+  "nodes": [
+    { "id": "gate_a", "type": "gate", "zone_id": "zone_north", "name": "Gate A" },
+    { "id": "gate_b", "type": "gate", "zone_id": "zone_south", "name": "Gate B" },
+    { "id": "gate_c", "type": "gate", "zone_id": "zone_east", "name": "Gate C" },
+    { "id": "sec_100", "type": "section", "zone_id": "zone_north", "name": "Section 100" },
+    { "id": "sec_105", "type": "section", "zone_id": "zone_north", "name": "Section 105" },
+    { "id": "sec_118", "type": "section", "zone_id": "zone_south", "name": "Section 118" },
+    { "id": "sec_214", "type": "section", "zone_id": "zone_east", "name": "Section 214" },
+    { "id": "food_north", "type": "amenity", "zone_id": "zone_north", "name": "North Food Court" },
+    { "id": "restroom_north", "type": "amenity", "zone_id": "zone_north", "name": "North Restroom" },
+    { "id": "restroom_east", "type": "amenity", "zone_id": "zone_east", "name": "East Restroom" },
+    { "id": "quiet_room", "type": "amenity", "zone_id": "zone_south", "name": "Sensory Quiet Room" },
+    { "id": "assistance_center", "type": "amenity", "zone_id": "zone_west", "name": "Accessibility Assistance Center" }
+  ],
+  "edges": [
+    { "from_node": "gate_a", "to_node": "sec_100", "distance_m": 50, "step_free": true },
+    { "from_node": "gate_a", "to_node": "food_north", "distance_m": 80, "step_free": true },
+    { "from_node": "food_north", "to_node": "sec_105", "distance_m": 40, "step_free": false },
+    { "from_node": "food_north", "to_node": "restroom_north", "distance_m": 20, "step_free": true },
+    { "from_node": "gate_b", "to_node": "sec_118", "distance_m": 100, "step_free": true },
+    { "from_node": "gate_b", "to_node": "quiet_room", "distance_m": 60, "step_free": true },
+    { "from_node": "gate_c", "to_node": "sec_214", "distance_m": 120, "step_free": false },
+    { "from_node": "gate_c", "to_node": "restroom_east", "distance_m": 30, "step_free": true }
+  ],
+  "transport_routes": [
+    { "id": "shuttle_downtown", "mode": "shuttle", "origin": "Downtown Transit Center", "destination": "Stadium Gate A", "capacity": 100, "current_load": 0 },
+    { "id": "metro_line_1", "mode": "metro", "origin": "Central Station", "destination": "Stadium Station (Gate B)", "capacity": 500, "current_load": 0 },
+    { "id": "parking_lot_3", "mode": "car", "origin": "Highway Exit 5", "destination": "Parking Lot 3", "capacity": 1000, "current_load": 0 }
+  ]
+}

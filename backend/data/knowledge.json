@@ -1,0 +1,26 @@
+[
+  {
+    "id": "faq_1",
+    "title": "Water Bottle Policy",
+    "text": "Fans are allowed to bring one clear, factory-sealed plastic water bottle (up to 20 oz). Reusable water bottles must be completely empty upon entry and can be filled at water fountains inside.",
+    "embedding": []
+  },
+  {
+    "id": "faq_2",
+    "title": "Gate Opening Times",
+    "text": "All stadium gates open 2 hours prior to the scheduled match kickoff time. VIP and Early Access ticket holders may enter 3 hours before kickoff via Gate West.",
+    "embedding": []
+  },
+  {
+    "id": "faq_3",
+    "title": "Bag Policy",
+    "text": "Only clear bags (maximum size 12\" x 6\" x 12\") and small clutch purses (maximum size 4.5\" x 6.5\") are permitted. Backpacks and opaque bags of any kind are strictly prohibited.",
+    "embedding": []
+  },
+  {
+    "id": "faq_4",
+    "title": "Sustainability Info",
+    "text": "Our stadium is committed to zero waste. Please use the clearly marked green recycling bins for plastic/aluminum and compost bins for food waste. Consider taking the Metro or the free Downtown Shuttle to reduce carbon emissions.",
+    "embedding": []
+  }
+]
