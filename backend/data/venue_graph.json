@@ -1,9 +1,9 @@
 {
   "zones": [
-    { "id": "zone_north", "name": "North Concourse", "capacity": 5000, "current_density": 0 },
-    { "id": "zone_south", "name": "South Concourse", "capacity": 5000, "current_density": 0 },
-    { "id": "zone_east", "name": "East Concourse", "capacity": 4000, "current_density": 0 },
-    { "id": "zone_west", "name": "West Concourse", "capacity": 4000, "current_density": 0 }
+    { "id": "zone_north", "name": "FIFA 2026 North Concourse", "capacity": 5000, "current_density": 0 },
+    { "id": "zone_south", "name": "FIFA 2026 South Concourse", "capacity": 5000, "current_density": 0 },
+    { "id": "zone_east", "name": "FIFA 2026 East Concourse", "capacity": 4000, "current_density": 0 },
+    { "id": "zone_west", "name": "FIFA 2026 West Concourse", "capacity": 4000, "current_density": 0 }
   ],
   "nodes": [
     { "id": "gate_a", "type": "gate", "zone_id": "zone_north", "name": "Gate A" },

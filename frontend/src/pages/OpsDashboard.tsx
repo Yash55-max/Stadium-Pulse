@@ -2,6 +2,43 @@ import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 
+export interface User {
+  name: string;
+  role: string;
+  avatar?: string;
+}
+
+export interface ZoneData {
+  name: string;
+  capacity: number;
+  current: number;
+  pct: number;
+}
+
+export interface TransportData {
+  id: string;
+  current_load: number;
+  capacity: number;
+}
+
+export interface OpsAction {
+  action: string;
+  priority: string;
+  target_zone?: string;
+  rationale: string;
+}
+
+export interface OpsData {
+  live_state: {
+    zones: Record<string, ZoneData>;
+    transport: TransportData[];
+  };
+  intelligence: {
+    summary: string;
+    actions: OpsAction[];
+  };
+}
+
 // Note: In a real app, Sidebar and TopHeader would be abstracted into a Layout component. 
 // Duplicating here for simplicity as per the implementation plan.
 function Sidebar({ logout }: { logout: () => void }) {
@@ -10,7 +47,7 @@ function Sidebar({ logout }: { logout: () => void }) {
     <aside className="hidden md:flex flex-col py-6 px-4 space-y-4 h-screen w-64 fixed left-0 top-0 bg-surface-container-low dark:bg-surface-dark border-r border-outline-variant dark:border-outline z-50">
       <div className="mb-8 flex flex-col">
         <span className="font-headline-md text-headline-md font-bold text-stadium-blue">StadiumPulse</span>
-        <span className="font-label-caps text-label-caps text-on-surface-variant mt-1">Command Center</span>
+        <span className="font-label-caps text-label-caps text-on-surface-variant mt-1">FIFA 2026 Command Center</span>
       </div>
       <div className="flex items-center space-x-3 px-2 mb-6">
         <div className="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center">
@@ -18,7 +55,7 @@ function Sidebar({ logout }: { logout: () => void }) {
         </div>
         <div>
           <p className="font-body-md text-body-md font-bold text-on-surface">Hub 01</p>
-          <p className="text-xs text-on-surface-variant">Global Ops</p>
+          <p className="text-xs text-on-surface-variant">FIFA Tournament Ops</p>
         </div>
       </div>
       <nav className="flex-1 space-y-1">
@@ -50,13 +87,13 @@ function Sidebar({ logout }: { logout: () => void }) {
   )
 }
 
-function TopHeader({ user }: { user: any }) {
+function TopHeader({ user }: { user: User | null }) {
   return (
     <header className="flex justify-between items-center w-full px-margin-desktop h-16 bg-surface dark:bg-surface-dark border-b border-outline-variant dark:border-outline z-40 sticky top-0">
       <div className="flex items-center space-x-8 flex-1">
         <div className="relative w-96">
           <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
-          <input className="w-full bg-surface-container-low dark:bg-slate-800 border border-outline-variant dark:border-slate-700 rounded-full py-2 pl-10 pr-4 focus:ring-2 focus:ring-stadium-blue focus:border-transparent outline-none text-sm transition-all dark:text-white dark:placeholder-slate-400" placeholder="Global search..." type="text"/>
+          <input aria-label="Global search" className="w-full bg-surface-container-low dark:bg-slate-800 border border-outline-variant dark:border-slate-700 rounded-full py-2 pl-10 pr-4 focus:ring-2 focus:ring-stadium-blue focus:border-transparent outline-none text-sm transition-all dark:text-white dark:placeholder-slate-400" placeholder="Global search..." type="text"/>
         </div>
         <div className="flex items-center space-x-4">
           <span className="font-label-caps text-label-caps text-on-surface-variant">Live Status:</span>
@@ -68,11 +105,11 @@ function TopHeader({ user }: { user: any }) {
       </div>
       <div className="flex items-center space-x-6">
         <div className="flex items-center space-x-4 mr-4 border-r border-outline-variant pr-6">
-          <button className="p-2 text-on-surface-variant hover:text-stadium-blue transition-colors relative">
+          <button aria-label="Notifications" className="p-2 text-on-surface-variant hover:text-stadium-blue transition-colors relative">
             <span className="material-symbols-outlined">notifications</span>
             <span className="absolute top-1 right-1 w-2 h-2 bg-critical-red rounded-full"></span>
           </button>
-          <button className="p-2 text-on-surface-variant hover:text-stadium-blue transition-colors">
+          <button aria-label="Settings" className="p-2 text-on-surface-variant hover:text-stadium-blue transition-colors">
             <span className="material-symbols-outlined">settings</span>
           </button>
         </div>
@@ -89,7 +126,7 @@ function TopHeader({ user }: { user: any }) {
 }
 
 export function OpsDashboard() {
-  const [data, setData] = useState<any>(null)
+  const [data, setData] = useState<OpsData | null>(null)
   const [error, setError] = useState<string | null>(null)
   const { user, logout } = useAuth()
 
@@ -160,7 +197,7 @@ export function OpsDashboard() {
                       <span className="material-symbols-outlined text-info-blue">train</span>
                     </div>
                     <div className="flex flex-col gap-2 mt-2">
-                      {data.live_state.transport.slice(0, 2).map((t: any) => (
+                      {data.live_state.transport.slice(0, 2).map((t: TransportData) => (
                         <div key={t.id} className="flex justify-between items-center text-sm">
                           <span className="font-bold">{t.id}</span>
                           <span className="text-on-surface-variant text-xs">{t.current_load}/{t.capacity}</span>
@@ -179,7 +216,7 @@ export function OpsDashboard() {
                     </div>
                     
                     <div className="grid grid-cols-2 gap-4">
-                      {Object.values(data.live_state.zones).map((z: any) => {
+                      {Object.values(data.live_state.zones).map((z: ZoneData) => {
                         const isHigh = z.pct > 0.8
                         return (
                           <div key={z.name} className={`p-4 rounded-lg border ${isHigh ? 'border-critical-red bg-error-container dark:bg-error-container/20 text-on-error-container dark:text-red-400' : 'border-outline-variant dark:border-slate-600 bg-surface dark:bg-slate-700'}`}>
@@ -219,7 +256,7 @@ export function OpsDashboard() {
                         <p className="text-sm text-on-surface-variant italic">No immediate actions required.</p>
                       ) : (
                         <div className="space-y-3">
-                          {data.intelligence.actions?.map((act: any, i: number) => {
+                          {data.intelligence.actions?.map((act: OpsAction, i: number) => {
                             const isHigh = act.priority === 'high'
                             return (
                               <div key={i} className={`p-4 rounded-lg border-l-4 bg-surface dark:bg-slate-700 ${isHigh ? 'border-l-critical-red border-y border-r border-outline-variant dark:border-y-slate-600 dark:border-r-slate-600' : 'border-l-stadium-blue border-y border-r border-outline-variant dark:border-y-slate-600 dark:border-r-slate-600'}`}>

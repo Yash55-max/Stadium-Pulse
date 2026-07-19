@@ -19,7 +19,7 @@ export function Home() {
       {/* Hero Section */}
       <div className="flex-1 flex flex-col items-center justify-center p-8 text-center max-w-4xl mx-auto w-full">
         <span className="bg-primary-fixed text-stadium-blue px-3 py-1 rounded-full font-label-caps text-[10px] mb-6 uppercase tracking-widest border border-primary-fixed-dim shadow-sm">
-          Welcome to the World Cup 2026
+          Welcome to the FIFA World Cup 2026
         </span>
         <h1 className="font-headline-xl text-5xl font-bold text-on-surface mb-6 leading-tight">
           Your Smart Stadium <br/><span className="text-stadium-blue">Fan Portal</span>

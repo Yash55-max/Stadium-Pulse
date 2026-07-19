@@ -1,9 +1,15 @@
 import { X } from 'lucide-react'
 
+export interface TraceDetail {
+  name: string;
+  arguments: Record<string, unknown>;
+  result: unknown;
+}
+
 interface TraceDrawerProps {
   isOpen: boolean;
   onClose: () => void;
-  traceDetails: any[];
+  traceDetails: TraceDetail[];
 }
 
 export function TraceDrawer({ isOpen, onClose, traceDetails }: TraceDrawerProps) {

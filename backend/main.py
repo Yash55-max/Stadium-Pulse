@@ -27,7 +27,11 @@ app = FastAPI(title="StadiumPulse API", lifespan=lifespan)
 # Add CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "http://localhost:5173",
+        "https://studio-1560217422-e282c.web.app",
+        "https://studio-1560217422-e282c.firebaseapp.com"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

@@ -1,7 +1,7 @@
 import json
 from agents.llm import chat_completion
 
-SYSTEM_PROMPT = """You classify incoming incident reports (from fans or staff) for stadium operations.
+SYSTEM_PROMPT = """You classify incoming incident reports (from fans or staff) for FIFA World Cup 2026 stadium operations.
 
 RULES:
 1. Output ONLY valid JSON matching this schema:

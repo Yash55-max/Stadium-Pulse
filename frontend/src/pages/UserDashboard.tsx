@@ -1,16 +1,22 @@
 import { useState, useEffect, useRef } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { TraceDrawer } from '../components/TraceDrawer'
+import { TraceDrawer, TraceDetail } from '../components/TraceDrawer'
+
+export interface ChatMessage {
+  role: string;
+  content: string;
+  trace?: TraceDetail[];
+}
 import { useAuth } from '../context/AuthContext'
 
 export function UserDashboard() {
   const { user, logout } = useAuth()
   const navigate = useNavigate()
-  const [messages, setMessages] = useState<{role: string, content: string, trace?: any[]}[]>([])
+  const [messages, setMessages] = useState<ChatMessage[]>([])
   const [input, setInput] = useState('')
   const [isAccessible, setIsAccessible] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const [activeTrace, setActiveTrace] = useState<any[] | null>(null)
+  const [activeTrace, setActiveTrace] = useState<TraceDetail[] | null>(null)
   
   const location = useLocation()
   const initialized = useRef(false)
@@ -29,7 +35,7 @@ export function UserDashboard() {
     navigate('/login')
   }
 
-  const sendMessage = async (text: string, acc: boolean, currentMessages: any[]) => {
+  const sendMessage = async (text: string, acc: boolean, currentMessages: ChatMessage[]) => {
     if (!text.trim()) return
     
     setMessages(prev => [...prev, { role: 'user', content: text }])

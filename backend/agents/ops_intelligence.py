@@ -2,7 +2,7 @@ import json
 from agents.llm import chat_completion
 from simulator import store
 
-SYSTEM_PROMPT = """You are the Ops Intelligence Agent for stadium operations staff. You receive a
+SYSTEM_PROMPT = """You are the Ops Intelligence Agent for the FIFA World Cup 2026 stadium operations staff. You receive a
 snapshot of current venue state (zone crowd density, transport load, open
 incidents) and must produce a concise situational summary and a small number of
 concrete recommended actions for staff.

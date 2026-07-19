@@ -2,6 +2,21 @@ import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 
+export interface User {
+  name: string;
+  role: string;
+  avatar?: string;
+}
+
+export interface Incident {
+  id: string;
+  severity: string;
+  created_at: string;
+  type: string;
+  raw_text: string;
+  recommended_response?: string;
+}
+
 // Note: In a real app, Sidebar and TopHeader would be abstracted into a Layout component. 
 // Duplicating here for simplicity as per the implementation plan.
 function Sidebar({ logout }: { logout: () => void }) {
@@ -10,7 +25,7 @@ function Sidebar({ logout }: { logout: () => void }) {
     <aside className="hidden md:flex flex-col py-6 px-4 space-y-4 h-screen w-64 fixed left-0 top-0 bg-surface-container-low dark:bg-surface-dark border-r border-outline-variant dark:border-outline z-50">
       <div className="mb-8 flex flex-col">
         <span className="font-headline-md text-headline-md font-bold text-stadium-blue">StadiumPulse</span>
-        <span className="font-label-caps text-label-caps text-on-surface-variant mt-1">Command Center</span>
+        <span className="font-label-caps text-label-caps text-on-surface-variant mt-1">FIFA 2026 Command Center</span>
       </div>
       <div className="flex items-center space-x-3 px-2 mb-6">
         <div className="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center">
@@ -18,7 +33,7 @@ function Sidebar({ logout }: { logout: () => void }) {
         </div>
         <div>
           <p className="font-body-md text-body-md font-bold text-on-surface">Hub 01</p>
-          <p className="text-xs text-on-surface-variant">Global Ops</p>
+          <p className="text-xs text-on-surface-variant">FIFA Tournament Ops</p>
         </div>
       </div>
       <nav className="flex-1 space-y-1">
@@ -50,22 +65,22 @@ function Sidebar({ logout }: { logout: () => void }) {
   )
 }
 
-function TopHeader({ user }: { user: any }) {
+function TopHeader({ user }: { user: User | null }) {
   return (
     <header className="flex justify-between items-center w-full px-margin-desktop h-16 bg-surface dark:bg-surface-dark border-b border-outline-variant dark:border-outline z-40 sticky top-0">
       <div className="flex items-center space-x-8 flex-1">
         <div className="relative w-96">
           <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
-          <input className="w-full bg-surface-container-low dark:bg-slate-800 border border-outline-variant dark:border-slate-700 rounded-full py-2 pl-10 pr-4 focus:ring-2 focus:ring-stadium-blue focus:border-transparent outline-none text-sm transition-all dark:text-white dark:placeholder-slate-400" placeholder="Search incidents..." type="text"/>
+          <input aria-label="Search incidents" className="w-full bg-surface-container-low dark:bg-slate-800 border border-outline-variant dark:border-slate-700 rounded-full py-2 pl-10 pr-4 focus:ring-2 focus:ring-stadium-blue focus:border-transparent outline-none text-sm transition-all dark:text-white dark:placeholder-slate-400" placeholder="Search incidents..." type="text"/>
         </div>
       </div>
       <div className="flex items-center space-x-6">
         <div className="flex items-center space-x-4 mr-4 border-r border-outline-variant pr-6">
-          <button className="p-2 text-on-surface-variant hover:text-stadium-blue transition-colors relative">
+          <button aria-label="Notifications" className="p-2 text-on-surface-variant hover:text-stadium-blue transition-colors relative">
             <span className="material-symbols-outlined">notifications</span>
             <span className="absolute top-1 right-1 w-2 h-2 bg-critical-red rounded-full"></span>
           </button>
-          <button className="p-2 text-on-surface-variant hover:text-stadium-blue transition-colors">
+          <button aria-label="Settings" className="p-2 text-on-surface-variant hover:text-stadium-blue transition-colors">
             <span className="material-symbols-outlined">settings</span>
           </button>
         </div>
@@ -82,7 +97,7 @@ function TopHeader({ user }: { user: any }) {
 }
 
 export function IncidentList() {
-  const [incidents, setIncidents] = useState<any[]>([])
+  const [incidents, setIncidents] = useState<Incident[]>([])
   const { user, logout } = useAuth()
 
   useEffect(() => {
@@ -119,19 +134,19 @@ export function IncidentList() {
                 <label className="font-label-caps text-label-caps text-outline uppercase block mb-3">Severity</label>
                 <div className="space-y-2">
                   <label className="flex items-center space-x-3 cursor-pointer group">
-                    <input defaultChecked className="form-checkbox rounded text-critical-red border-outline-variant focus:ring-critical-red" type="checkbox"/>
+                    <input aria-label="Filter Critical" defaultChecked className="form-checkbox rounded text-critical-red border-outline-variant focus:ring-critical-red" type="checkbox"/>
                     <span className="text-body-md group-hover:text-critical-red transition-colors">Critical</span>
                   </label>
                   <label className="flex items-center space-x-3 cursor-pointer group">
-                    <input defaultChecked className="form-checkbox rounded text-alert-orange border-outline-variant focus:ring-alert-orange" type="checkbox"/>
+                    <input aria-label="Filter High" defaultChecked className="form-checkbox rounded text-alert-orange border-outline-variant focus:ring-alert-orange" type="checkbox"/>
                     <span className="text-body-md group-hover:text-alert-orange transition-colors">High</span>
                   </label>
                   <label className="flex items-center space-x-3 cursor-pointer group">
-                    <input defaultChecked className="form-checkbox rounded text-stadium-blue border-outline-variant focus:ring-stadium-blue" type="checkbox"/>
+                    <input aria-label="Filter Medium" defaultChecked className="form-checkbox rounded text-stadium-blue border-outline-variant focus:ring-stadium-blue" type="checkbox"/>
                     <span className="text-body-md group-hover:text-stadium-blue transition-colors">Medium</span>
                   </label>
                   <label className="flex items-center space-x-3 cursor-pointer group">
-                    <input className="form-checkbox rounded text-pitch-green border-outline-variant focus:ring-pitch-green" type="checkbox"/>
+                    <input aria-label="Filter Low" className="form-checkbox rounded text-pitch-green border-outline-variant focus:ring-pitch-green" type="checkbox"/>
                     <span className="text-body-md group-hover:text-pitch-green transition-colors">Low</span>
                   </label>
                 </div>

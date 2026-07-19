@@ -9,6 +9,12 @@ import utils
 
 client = TestClient(app)
 
+def test_root():
+    """Test the root health check endpoint"""
+    response = client.get("/")
+    assert response.status_code == 200
+    assert response.json() == {"status": "StadiumPulse API is running."}
+
 def test_api_chat_success():
     """Test that /api/chat returns 200 with valid input"""
     response = client.post(
