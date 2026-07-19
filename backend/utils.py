@@ -1,8 +1,10 @@
 import uuid
 from typing import List, Dict, Any, Optional
 from datetime import datetime
+from functools import lru_cache
 from simulator import store
 
+@lru_cache(maxsize=100)
 def get_route(from_node_name: str, to_node_name: str, accessibility: bool = False) -> Dict[str, Any]:
     # Mock routing logic for hackathon purposes.
     # In reality, this would use NetworkX or similar over store.venue["edges"]
@@ -26,6 +28,7 @@ def get_route(from_node_name: str, to_node_name: str, accessibility: bool = Fals
         "step_free": accessibility
     }
 
+@lru_cache(maxsize=100)
 def search_knowledge(query: str) -> Dict[str, Any]:
     # Simple keyword/mock retrieval
     query_lower = query.lower()

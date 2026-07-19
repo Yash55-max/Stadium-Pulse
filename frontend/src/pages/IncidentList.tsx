@@ -88,7 +88,11 @@ export function IncidentList() {
   useEffect(() => {
     const fetchIncidents = async () => {
       try {
-        const res = await fetch('http://localhost:8000/api/ops/incidents')
+        const res = await fetch('http://localhost:8000/api/ops/incidents', {
+          headers: {
+            'Authorization': 'Bearer ops-secret-token'
+          }
+        })
         const json = await res.json()
         setIncidents(json.incidents || [])
       } catch (e) {

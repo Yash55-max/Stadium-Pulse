@@ -97,7 +97,11 @@ export function OpsDashboard() {
     // Poll every 5 seconds
     const fetchOps = async () => {
       try {
-        const res = await fetch('http://localhost:8000/api/ops/summary')
+        const res = await fetch('http://localhost:8000/api/ops/summary', {
+          headers: {
+            'Authorization': 'Bearer ops-secret-token'
+          }
+        })
         const json = await res.json()
         setData(json)
         setError(null)
