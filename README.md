@@ -29,11 +29,11 @@ Modern stadiums often struggle with static signage, fragmented fan communication
 
 | Layer | Technology |
 |---|---|
-| LLM | Groq API |
-| Backend | Python, FastAPI, MCP |
-| Frontend | React, TypeScript, Vite, Tailwind CSS, Recharts |
-| Data Store(s) | JSON/SQLite Venue Graph, Vector Store (RAG), In-Memory/Redis Live State Store |
-| Deployment | Firebase Hosting (Frontend), Google Cloud Run (Backend) |
+| LLM | ![Groq API](https://img.shields.io/badge/Groq-API-orange?style=flat) |
+| Backend | ![Python](https://img.shields.io/badge/Python-3670A0?style=flat&logo=python&logoColor=ffdd54) ![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=flat&logo=fastapi) ![MCP](https://img.shields.io/badge/MCP-purple?style=flat) |
+| Frontend | ![React](https://img.shields.io/badge/React-%2320232a.svg?style=flat&logo=react&logoColor=%2361DAFB) ![TypeScript](https://img.shields.io/badge/TypeScript-%23007ACC.svg?style=flat&logo=typescript&logoColor=white) ![Vite](https://img.shields.io/badge/Vite-%23646CFF.svg?style=flat&logo=vite&logoColor=white) ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-%2338B2AC.svg?style=flat&logo=tailwind-css&logoColor=white) ![Recharts](https://img.shields.io/badge/Recharts-22b5bf?style=flat) |
+| Data Store(s) | ![SQLite](https://img.shields.io/badge/SQLite-%2307405e.svg?style=flat&logo=sqlite&logoColor=white) ![Redis](https://img.shields.io/badge/Redis-%23DD0031.svg?style=flat&logo=redis&logoColor=white) Vector Store (RAG) |
+| Deployment | ![Firebase Hosting](https://img.shields.io/badge/Firebase_Hosting-%23039BE5.svg?style=flat&logo=firebase) ![Google Cloud Run](https://img.shields.io/badge/Google_Cloud_Run-%234285F4.svg?style=flat&logo=google-cloud&logoColor=white) |
 
 ## 5. Setup & Run
 ```bash
