@@ -25,7 +25,7 @@ RULES:
 4. If nothing requires action, return an empty actions array and a calm summary.
 5. Be specific and operational."""
 
-def generate_ops_summary() -> dict:
+async def generate_ops_summary() -> dict:
     snapshot = {
         "zones": store.get_zone_densities(),
         "transport": store.get_transport_status(),
@@ -37,7 +37,7 @@ def generate_ops_summary() -> dict:
         {"role": "user", "content": f"Current State Snapshot: {json.dumps(snapshot)}"}
     ]
     
-    response = chat_completion(messages)
+    response = await chat_completion(messages)
     content = response.choices[0].message.content
     try:
         if "```json" in content:

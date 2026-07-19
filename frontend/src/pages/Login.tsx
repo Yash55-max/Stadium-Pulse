@@ -4,19 +4,14 @@ import { useAuth } from '../context/AuthContext';
 
 export function Login() {
   const [name, setName] = useState('');
-  const [role, setRole] = useState('Fan');
   const [password, setPassword] = useState('');
   const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    login(name, role);
-    if (role === 'Staff') {
-      navigate('/ops');
-    } else {
-      navigate('/user');
-    }
+    login(name, 'Staff');
+    navigate('/ops');
   };
 
   return (
@@ -44,19 +39,6 @@ export function Login() {
             />
           </div>
 
-          <div>
-            <label htmlFor="roleInput" className="font-label-caps text-label-caps text-on-surface-variant mb-1 block">Role</label>
-            <select 
-              id="roleInput"
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
-              className="w-full border border-outline-variant rounded-lg p-3 bg-surface focus:ring-2 focus:ring-stadium-blue outline-none transition-all text-on-surface"
-            >
-              <option value="Fan">Fan</option>
-              <option value="Staff">Staff</option>
-            </select>
-          </div>
-          
           <div>
             <label htmlFor="passwordInput" className="font-label-caps text-label-caps text-on-surface-variant mb-1 block">Password</label>
             <input 

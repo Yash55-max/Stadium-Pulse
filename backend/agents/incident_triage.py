@@ -13,12 +13,12 @@ RULES:
 2. Err toward higher severity when the report is ambiguous but could involve injury, danger, or a minor separated from their group.
 3. Do not add commentary, apologies, or disclaimers outside the JSON object."""
 
-def classify_incident(raw_text: str) -> dict:
+async def classify_incident(raw_text: str) -> dict:
     messages = [
         {"role": "system", "content": SYSTEM_PROMPT},
         {"role": "user", "content": f"Incident report: {raw_text}"}
     ]
-    response = chat_completion(messages)
+    response = await chat_completion(messages)
     content = response.choices[0].message.content
     try:
         # Sometimes LLMs wrap JSON in markdown blocks

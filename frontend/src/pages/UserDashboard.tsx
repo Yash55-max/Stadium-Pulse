@@ -82,7 +82,7 @@ export function UserDashboard() {
   return (
     <div className="flex-1 flex flex-col bg-mesh relative min-h-screen">
       {/* Top App Bar */}
-      <header className="bg-surface sticky top-0 z-50 border-b border-outline-variant flex justify-between items-center w-full px-margin-mobile h-16 max-w-container-max-width mx-auto">
+      <header className="bg-surface dark:bg-surface-dark sticky top-0 z-50 border-b border-outline-variant dark:border-slate-700 flex justify-between items-center w-full px-margin-mobile h-16 max-w-container-max-width mx-auto">
         <div className="flex items-center gap-3">
           <span className="font-headline-md text-headline-md font-bold text-stadium-blue">StadiumPulse</span>
         </div>
@@ -97,19 +97,29 @@ export function UserDashboard() {
           </button>
           
           <div className="flex items-center gap-2">
-            <span className="font-body-md font-bold text-on-surface hidden md:inline">{user?.name}</span>
+            <span className="font-body-md font-bold text-on-surface hidden md:inline">{user?.name || "Fan"}</span>
             <div className="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
               <img className="w-full h-full object-cover" src={user?.avatar || "https://lh3.googleusercontent.com/aida-public/AB6AXuCyI716iYn8qkP7P8V1joJksl-Kuj6yLF-d0Rbuym1dGQYRWo-7tlX01UfLRQiw_tJdmPy54JI_PmL366umUHz9ksEV5kt4A1r0JU2diXMau4XMGn0_dzdRJFF6bX5J7mDmiop1Syu_ikFmk4EbKW6p1G_mlIH00lzfbXEKWYBA_zxn2DdjOod5arHqBl7_T-nM9sx35bLJbF6V1xerVDgQU3a5c3fc2-xO7OfD9pSwAwH-PVwDOuT_lZS3N0nIgLryPfYnQ9xOdUk"} alt="Profile" />
             </div>
           </div>
           
-          <button 
-            onClick={handleLogout}
-            className="text-on-surface-variant hover:text-alert-orange transition-colors"
-            title="Logout"
-          >
-            <span className="material-symbols-outlined">logout</span>
-          </button>
+          {user ? (
+            <button 
+              onClick={handleLogout}
+              className="text-on-surface-variant hover:text-alert-orange transition-colors"
+              title="Logout"
+            >
+              <span className="material-symbols-outlined">logout</span>
+            </button>
+          ) : (
+            <button 
+              onClick={() => navigate('/')}
+              className="text-on-surface-variant hover:text-stadium-blue transition-colors"
+              title="Home"
+            >
+              <span className="material-symbols-outlined">home</span>
+            </button>
+          )}
         </div>
       </header>
 
@@ -119,39 +129,39 @@ export function UserDashboard() {
           {/* Welcome Section (Only show if no messages) */}
           {messages.length === 0 && !isLoading && (
             <>
-              <div className="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant shadow-sm mb-6">
+              <div className="bg-surface-container-lowest dark:bg-slate-800 p-6 rounded-xl border border-outline-variant dark:border-slate-700 shadow-sm mb-6">
                 <div className="flex items-center gap-4 mb-4">
                   <div className="w-12 h-12 bg-primary-container rounded-full flex items-center justify-center text-on-primary-container">
                     <span className="material-symbols-outlined text-3xl" style={{fontVariationSettings: "'FILL' 1"}}>smart_toy</span>
                   </div>
                   <div>
-                    <h1 className="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Hello, {user?.name}!</h1>
-                    <p className="text-on-surface-variant font-body-md">I'm your StadiumPulse AI Assistant.</p>
+                    <h1 className="font-headline-lg-mobile text-headline-lg-mobile text-on-surface dark:text-white">Hello, {user?.name || "Fan"}!</h1>
+                    <p className="text-on-surface-variant dark:text-slate-300 font-body-md">I'm your StadiumPulse AI Assistant.</p>
                   </div>
                 </div>
                 {/* Quick Actions Grid */}
-                <div className="grid grid-cols-2 gap-3">
-                  <button onClick={() => sendMessage("Find my seat", isAccessible, messages)} className="flex items-center gap-2 p-3 bg-surface border border-outline-variant rounded-lg hover:bg-surface-container-high transition-all text-left group">
-                    <span className="material-symbols-outlined text-stadium-blue group-hover:scale-110 duration-150">event_seat</span>
+                <div className="grid grid-cols-2 gap-3 text-on-surface dark:text-white">
+                  <button onClick={() => sendMessage("Find my seat", isAccessible, messages)} className="flex items-center gap-2 p-3 bg-surface dark:bg-slate-700 border border-outline-variant dark:border-slate-600 rounded-lg hover:bg-surface-container-high dark:hover:bg-slate-600 transition-all text-left group">
+                    <span className="material-symbols-outlined text-stadium-blue dark:text-primary-fixed-dim group-hover:scale-110 duration-150">event_seat</span>
                     <span className="font-label-caps text-label-caps">Find My Seat</span>
                   </button>
-                  <button onClick={() => { setIsAccessible(true); sendMessage("Step-free route to Gate A", true, messages) }} className="flex items-center gap-2 p-3 bg-sensory-calm border border-stadium-blue/10 rounded-lg hover:bg-stadium-blue/5 transition-all text-left group">
-                    <span className="material-symbols-outlined text-stadium-blue group-hover:scale-110 duration-150">accessible_forward</span>
+                  <button onClick={() => { setIsAccessible(true); sendMessage("Step-free route to Gate A", true, messages) }} className="flex items-center gap-2 p-3 bg-sensory-calm dark:bg-slate-700 border border-stadium-blue/10 dark:border-slate-600 rounded-lg hover:bg-stadium-blue/5 dark:hover:bg-slate-600 transition-all text-left group">
+                    <span className="material-symbols-outlined text-stadium-blue dark:text-primary-fixed-dim group-hover:scale-110 duration-150">accessible_forward</span>
                     <span className="font-label-caps text-label-caps">Step-free route</span>
                   </button>
-                  <button onClick={() => sendMessage("Where are the restrooms?", isAccessible, messages)} className="flex items-center gap-2 p-3 bg-surface border border-outline-variant rounded-lg hover:bg-surface-container-high transition-all text-left group">
-                    <span className="material-symbols-outlined text-stadium-blue group-hover:scale-110 duration-150">wc</span>
+                  <button onClick={() => sendMessage("Where are the restrooms?", isAccessible, messages)} className="flex items-center gap-2 p-3 bg-surface dark:bg-slate-700 border border-outline-variant dark:border-slate-600 rounded-lg hover:bg-surface-container-high dark:hover:bg-slate-600 transition-all text-left group">
+                    <span className="material-symbols-outlined text-stadium-blue dark:text-primary-fixed-dim group-hover:scale-110 duration-150">wc</span>
                     <span className="font-label-caps text-label-caps">Restrooms</span>
                   </button>
-                  <button onClick={() => sendMessage("How do I exit?", isAccessible, messages)} className="flex items-center gap-2 p-3 bg-surface border border-outline-variant rounded-lg hover:bg-surface-container-high transition-all text-left group">
-                    <span className="material-symbols-outlined text-stadium-blue group-hover:scale-110 duration-150">logout</span>
+                  <button onClick={() => sendMessage("How do I exit?", isAccessible, messages)} className="flex items-center gap-2 p-3 bg-surface dark:bg-slate-700 border border-outline-variant dark:border-slate-600 rounded-lg hover:bg-surface-container-high dark:hover:bg-slate-600 transition-all text-left group">
+                    <span className="material-symbols-outlined text-stadium-blue dark:text-primary-fixed-dim group-hover:scale-110 duration-150">logout</span>
                     <span className="font-label-caps text-label-caps">Exit Directions</span>
                   </button>
                 </div>
               </div>
 
               {/* Transit Status Card */}
-              <div className="bg-surface-container-low p-4 rounded-xl border border-outline-variant mb-6">
+              <div className="bg-surface-container-low dark:bg-slate-800 p-4 rounded-xl border border-outline-variant dark:border-slate-700 mb-6">
                 <div className="flex justify-between items-center mb-3">
                   <h2 className="font-label-caps text-label-caps flex items-center gap-2">
                     <span className="material-symbols-outlined text-info-blue">directions_transit</span>
@@ -160,24 +170,24 @@ export function UserDashboard() {
                   <span className="bg-pitch-green/10 text-pitch-green px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider">On Time</span>
                 </div>
                 <div className="space-y-3">
-                  <div className="flex items-center justify-between p-2 bg-surface rounded-lg border border-outline-variant/50">
+                  <div className="flex items-center justify-between p-2 bg-surface dark:bg-slate-700 rounded-lg border border-outline-variant/50 dark:border-slate-600">
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 rounded bg-stadium-blue flex items-center justify-center text-white font-bold text-xs">M1</div>
                       <div>
-                        <p className="font-bold text-sm">Lusail Central</p>
-                        <p className="text-xs text-on-surface-variant">Every 4 mins</p>
+                        <p className="font-bold text-sm text-on-surface dark:text-white">Lusail Central</p>
+                        <p className="text-xs text-on-surface-variant dark:text-slate-300">Every 4 mins</p>
                       </div>
                     </div>
                     <div className="text-right">
                       <span className="material-symbols-outlined text-pitch-green" style={{fontVariationSettings: "'FILL' 1"}}>check_circle</span>
                     </div>
                   </div>
-                  <div className="flex items-center justify-between p-2 bg-surface rounded-lg border border-outline-variant/50">
+                  <div className="flex items-center justify-between p-2 bg-surface dark:bg-slate-700 rounded-lg border border-outline-variant/50 dark:border-slate-600">
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 rounded bg-alert-orange flex items-center justify-center text-white font-bold text-xs">B22</div>
                       <div>
-                        <p className="font-bold text-sm">Fan Zone Shuttle</p>
-                        <p className="text-xs text-on-surface-variant">Arriving in 2m</p>
+                        <p className="font-bold text-sm text-on-surface dark:text-white">Fan Zone Shuttle</p>
+                        <p className="text-xs text-on-surface-variant dark:text-slate-300">Arriving in 2m</p>
                       </div>
                     </div>
                     <div className="text-right">
@@ -200,7 +210,7 @@ export function UserDashboard() {
                 </div>
               )}
               <div className="flex flex-col">
-                <div className={`p-4 text-sm shadow-sm ${msg.role === 'user' ? 'bg-surface-container-highest text-on-surface rounded-2xl chat-bubble-fan border border-outline-variant' : 'bg-surface-container-lowest text-on-surface rounded-2xl chat-bubble-assistant border border-outline-variant'}`}>
+                <div className={`p-4 text-sm shadow-sm ${msg.role === 'user' ? 'bg-surface-container-highest dark:bg-slate-600 text-on-surface dark:text-white rounded-2xl chat-bubble-fan border border-outline-variant dark:border-slate-500' : 'bg-surface-container-lowest dark:bg-slate-700 text-on-surface dark:text-white rounded-2xl chat-bubble-assistant border border-outline-variant dark:border-slate-600'}`}>
                   <p className="whitespace-pre-wrap leading-relaxed font-body-md">{msg.content}</p>
                 </div>
                 {msg.trace && msg.trace.length > 0 && (
@@ -220,7 +230,7 @@ export function UserDashboard() {
               <div className="w-8 h-8 rounded-full bg-stadium-blue flex-shrink-0 flex items-center justify-center text-white">
                 <span className="material-symbols-outlined text-sm animate-pulse-subtle" style={{fontVariationSettings: "'FILL' 1"}}>smart_toy</span>
               </div>
-              <div className="bg-surface-container-lowest p-4 rounded-2xl rounded-bl-none text-on-surface-variant text-sm border border-outline-variant shadow-sm flex gap-1">
+              <div className="bg-surface-container-lowest dark:bg-slate-700 p-4 rounded-2xl rounded-bl-none text-on-surface-variant dark:text-slate-300 text-sm border border-outline-variant dark:border-slate-600 shadow-sm flex gap-1">
                 <span className="w-2 h-2 rounded-full bg-stadium-blue/50 animate-bounce"></span>
                 <span className="w-2 h-2 rounded-full bg-stadium-blue/50 animate-bounce" style={{animationDelay: '0.1s'}}></span>
                 <span className="w-2 h-2 rounded-full bg-stadium-blue/50 animate-bounce" style={{animationDelay: '0.2s'}}></span>
@@ -232,14 +242,14 @@ export function UserDashboard() {
       </main>
 
       {/* Chat Input Area */}
-      <div className="fixed bottom-0 left-0 w-full bg-surface border-t border-outline-variant px-margin-mobile py-4 z-40">
-        <form onSubmit={handleSubmit} className="flex items-center gap-2 max-w-lg mx-auto bg-surface-container-lowest border border-outline-variant rounded-full px-4 py-2 focus-within:ring-2 focus-within:ring-stadium-blue/20 transition-all shadow-sm">
+      <div className="fixed bottom-0 left-0 w-full bg-surface dark:bg-surface-dark border-t border-outline-variant dark:border-slate-700 px-margin-mobile py-4 z-40">
+        <form onSubmit={handleSubmit} className="flex items-center gap-2 max-w-lg mx-auto bg-surface-container-lowest dark:bg-slate-800 border border-outline-variant dark:border-slate-700 rounded-full px-4 py-2 focus-within:ring-2 focus-within:ring-stadium-blue/20 transition-all shadow-sm">
           <input 
             type="text" 
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Ask a question..." 
-            className="flex-1 bg-transparent border-none text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:ring-0 text-sm font-body-md py-2"
+            className="flex-1 bg-transparent border-none text-on-surface dark:text-white placeholder:text-on-surface-variant dark:placeholder-slate-400 focus:outline-none focus:ring-0 text-sm font-body-md py-2"
             aria-label="Chat input"
           />
           <button 

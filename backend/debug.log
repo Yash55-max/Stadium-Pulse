@@ -1,0 +1,26 @@
+Entering chat_endpoint
+handle_chat starting. calling chat_completion with 13 tools
+Exception in chat_completion 1: Error code: 413 - {'error': {'message': 'Request too large for model `llama-3.3-70b-versatile` in organization `org_01kqhttsnpf44ag04gkwsacm2h` service tier `on_demand` on tokens per minute (TPM): Limit 12000, Requested 14004, please reduce your message size and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+Error in chat_endpoint: Error code: 413 - {'error': {'message': 'Request too large for model `llama-3.3-70b-versatile` in organization `org_01kqhttsnpf44ag04gkwsacm2h` service tier `on_demand` on tokens per minute (TPM): Limit 12000, Requested 14004, please reduce your message size and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+Traceback (most recent call last):
+  File "D:\Projects\stadium-pulse\backend\routers\api.py", line 27, in chat_endpoint
+    result = await handle_chat(req.messages)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\stadium-pulse\backend\agents\fan_assistant.py", line 99, in handle_chat
+    response = await chat_completion(messages, tools=all_tools)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\stadium-pulse\backend\agents\llm.py", line 23, in chat_completion
+    return await client.chat.completions.create(**kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\stadium-pulse\backend\venv\Lib\site-packages\groq\resources\chat\completions.py", line 943, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+    ...<47 lines>...
+    )
+    ^
+  File "D:\Projects\stadium-pulse\backend\venv\Lib\site-packages\groq\_base_client.py", line 1856, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\stadium-pulse\backend\venv\Lib\site-packages\groq\_base_client.py", line 1655, in request
+    raise self._make_status_error_from_response(err.response) from None
+groq.APIStatusError: Error code: 413 - {'error': {'message': 'Request too large for model `llama-3.3-70b-versatile` in organization `org_01kqhttsnpf44ag04gkwsacm2h` service tier `on_demand` on tokens per minute (TPM): Limit 12000, Requested 14004, please reduce your message size and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}

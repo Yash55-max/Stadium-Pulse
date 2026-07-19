@@ -41,7 +41,7 @@ function Sidebar({ logout }: { logout: () => void }) {
       </button>
       <button 
         onClick={logout} 
-        className="w-full py-3 px-4 bg-surface text-critical-red rounded-lg font-bold flex items-center justify-center space-x-2 border border-critical-red/20 hover:bg-error-container transition-all"
+        className="w-full py-3 px-4 bg-surface dark:bg-slate-800 text-critical-red rounded-lg font-bold flex items-center justify-center space-x-2 border border-critical-red/20 hover:bg-error-container dark:hover:bg-error-container/20 transition-all"
       >
         <span className="material-symbols-outlined">logout</span>
         <span className="font-label-caps text-label-caps">Logout</span>
@@ -56,7 +56,7 @@ function TopHeader({ user }: { user: any }) {
       <div className="flex items-center space-x-8 flex-1">
         <div className="relative w-96">
           <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
-          <input className="w-full bg-surface-container-low border border-outline-variant rounded-full py-2 pl-10 pr-4 focus:ring-2 focus:ring-stadium-blue focus:border-transparent outline-none text-sm transition-all" placeholder="Search incidents..." type="text"/>
+          <input className="w-full bg-surface-container-low dark:bg-slate-800 border border-outline-variant dark:border-slate-700 rounded-full py-2 pl-10 pr-4 focus:ring-2 focus:ring-stadium-blue focus:border-transparent outline-none text-sm transition-all dark:text-white dark:placeholder-slate-400" placeholder="Search incidents..." type="text"/>
         </div>
       </div>
       <div className="flex items-center space-x-6">
@@ -71,8 +71,8 @@ function TopHeader({ user }: { user: any }) {
         </div>
         <div className="flex items-center space-x-3">
           <div className="text-right">
-            <p className="font-body-md text-sm font-bold text-on-surface">{user?.name}</p>
-            <p className="text-xs text-on-surface-variant">{user?.role}</p>
+            <p className="font-body-md text-sm font-bold text-on-surface dark:text-white">{user?.name}</p>
+            <p className="text-xs text-on-surface-variant dark:text-slate-400">{user?.role}</p>
           </div>
           <img className="w-10 h-10 rounded-full border border-outline-variant object-cover" src={user?.avatar || "https://lh3.googleusercontent.com/aida-public/AB6AXuDd18Kljd8UHx3d6QCGS9SDJkcC70ns0T0iNOI4Ig0xQ2yuoaJQw7BC7euUaLpzDfKwvA6hBhtHymHggybouNJa9Qugg1uK6rEAPsAc-2AqB59VyxSy0B00jkgMqU2UhBvRdevQNUbCu3t38eddX75U-S2bXPhgW5GwE0IiQ_VYNqMAm7XwFi6BYh00IWDBMevsenIYRXMZkBJdlkaPLB04U25r4ZHZvf6RR6fYisrQaH_SI-L3vTdXlkDJILpAi3qfu1hzU0vqEPA"}/>
         </div>
@@ -101,14 +101,14 @@ export function IncidentList() {
   }, [])
 
   return (
-    <div className="flex h-screen bg-background overflow-hidden font-body-md text-on-surface">
+    <div className="flex h-screen bg-background dark:bg-surface-dark overflow-hidden font-body-md text-on-surface dark:text-white">
       <Sidebar logout={logout} />
       <main className="md:ml-64 flex flex-col flex-1 h-screen overflow-hidden">
         <TopHeader user={user} />
         
         <div className="flex flex-1 overflow-hidden">
           {/* Filter Sidebar */}
-          <aside className="w-72 bg-surface-container-lowest border-r border-outline-variant p-6 custom-scrollbar overflow-y-auto hidden lg:block">
+          <aside className="w-72 bg-surface-container-lowest dark:bg-slate-800 border-r border-outline-variant dark:border-slate-700 p-6 custom-scrollbar overflow-y-auto hidden lg:block">
             <h2 className="font-headline-md text-headline-md mb-6">Filters</h2>
             <div className="space-y-8">
               <section>
@@ -136,8 +136,8 @@ export function IncidentList() {
           </aside>
 
           {/* Incident Table area */}
-          <div className="flex-1 flex flex-col bg-background">
-            <div className="p-6 border-b border-outline-variant flex justify-between items-center bg-surface">
+          <div className="flex-1 flex flex-col bg-background dark:bg-surface-dark">
+            <div className="p-6 border-b border-outline-variant dark:border-slate-700 flex justify-between items-center bg-surface dark:bg-slate-800">
               <div>
                 <h1 className="font-headline-lg text-headline-lg">Active Incidents</h1>
                 <p className="text-on-surface-variant text-body-md">{incidents.length} unacknowledged reports requiring attention.</p>
@@ -153,8 +153,8 @@ export function IncidentList() {
             <div className="flex-1 overflow-y-auto custom-scrollbar p-6">
               <div className="grid grid-cols-1 gap-4">
                 {incidents.length === 0 ? (
-                  <div className="p-8 text-center text-on-surface-variant bg-surface-container-lowest rounded-xl border border-outline-variant">
-                    <span className="material-symbols-outlined text-4xl mb-2 text-outline-variant">task_alt</span>
+                  <div className="p-8 text-center text-on-surface-variant dark:text-slate-400 bg-surface-container-lowest dark:bg-slate-800 rounded-xl border border-outline-variant dark:border-slate-700">
+                    <span className="material-symbols-outlined text-4xl mb-2 text-outline-variant dark:text-slate-500">task_alt</span>
                     <p>No active incidents.</p>
                   </div>
                 ) : (
@@ -165,21 +165,21 @@ export function IncidentList() {
                     const badgeClass = isCritical ? 'bg-critical-red' : isHigh ? 'bg-alert-orange' : 'bg-stadium-blue'
                     
                     return (
-                      <div key={inc.id} className={`bg-surface-container-lowest p-5 rounded-xl border border-outline-variant shadow-sm ${severityClass} flex flex-col lg:flex-row gap-6`}>
+                      <div key={inc.id} className={`bg-surface-container-lowest dark:bg-slate-800 p-5 rounded-xl border border-outline-variant dark:border-slate-700 shadow-sm ${severityClass} flex flex-col lg:flex-row gap-6`}>
                         <div className="flex-1">
                           <div className="flex items-center gap-3 mb-3">
                             <span className={`px-2 py-1 ${badgeClass} text-white font-label-caps text-[10px] rounded`}>
                               {inc.severity?.toUpperCase() || 'PROCESSING'}
                             </span>
-                            <span className="font-label-caps text-on-surface-variant">{inc.id}</span>
-                            <span className="font-label-caps text-on-surface-variant">•</span>
-                            <span className="font-label-caps text-on-surface-variant">{new Date(inc.created_at).toLocaleTimeString()}</span>
+                            <span className="font-label-caps text-on-surface-variant dark:text-slate-400">{inc.id}</span>
+                            <span className="font-label-caps text-on-surface-variant dark:text-slate-400">•</span>
+                            <span className="font-label-caps text-on-surface-variant dark:text-slate-400">{new Date(inc.created_at).toLocaleTimeString()}</span>
                           </div>
-                          <h3 className="font-headline-md text-lg text-on-surface mb-2">{inc.type || 'Incoming Report'}</h3>
-                          <p className="text-on-surface-variant text-sm mb-4">"{inc.raw_text}"</p>
+                          <h3 className="font-headline-md text-lg text-on-surface dark:text-white mb-2">{inc.type || 'Incoming Report'}</h3>
+                          <p className="text-on-surface-variant dark:text-slate-300 text-sm mb-4">"{inc.raw_text}"</p>
                         </div>
-                        <div className="w-full lg:w-1/3 bg-surface p-4 rounded-lg border border-outline-variant/50 flex flex-col justify-center">
-                          <span className="font-label-caps text-xs text-on-surface-variant mb-2">AI Recommendation</span>
+                        <div className="w-full lg:w-1/3 bg-surface dark:bg-slate-700 p-4 rounded-lg border border-outline-variant/50 dark:border-slate-600 flex flex-col justify-center">
+                          <span className="font-label-caps text-xs text-on-surface-variant dark:text-slate-400 mb-2">AI Recommendation</span>
                           <p className="text-sm font-medium text-stadium-blue italic">
                             {inc.recommended_response || 'Analyzing...'}
                           </p>
